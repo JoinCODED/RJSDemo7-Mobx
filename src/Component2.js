@@ -1,5 +1,9 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
+
 import "./App.css";
+
+import Store from "./Stores/numberStore";
 
 class Component2 extends Component {
   state = {
@@ -16,10 +20,10 @@ class Component2 extends Component {
       <div className="col-lg-6">
         <div className="component">
           <p>COMPONENT 2</p>
-          <p>{this.state.counter}</p>
+          <p>{Store.counter}</p>
           <button
             className="btn btn-lg btn-outline-dark"
-            onClick={this.handleDecrement}
+            onClick={() => Store.decrementCounter()}
           >
             Decrement
           </button>
@@ -29,4 +33,4 @@ class Component2 extends Component {
   }
 }
 
-export default Component2;
+export default observer(Component2);
