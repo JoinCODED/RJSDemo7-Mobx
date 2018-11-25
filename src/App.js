@@ -7,7 +7,7 @@ import counterStore from "./stores/counterStore";
 import Component1 from "./Component1";
 import Component2 from "./Component2";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <p>{counterStore.double}</p>
@@ -25,6 +25,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default observer(App);
