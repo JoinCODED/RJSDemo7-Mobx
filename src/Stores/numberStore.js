@@ -13,17 +13,17 @@ class NumberStore {
     this.counter--;
   }
 
-  multiplyCounter() {
+  multiplyCounterByFive() {
     this.counter = this.counter * 5;
   }
 
-  get multiplyCounter2() {
+  get double() {
     return this.counter * 2;
   }
 }
 
 decorate(NumberStore, {
   counter: observable,
-  multiplyCounter2: computed
+  double: computed
 });
 export default new NumberStore();

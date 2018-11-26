@@ -18,7 +18,7 @@ function App() {
       <div className="row">
         <button
           className="btn btn-lg btn-block btn-outline-light"
-          onClick={() => counterStore.multiplyCounter()}
+          onClick={counterStore.multiplyCounter}
         >
           Multiply by 5
         </button>
