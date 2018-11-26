@@ -1,44 +1,168 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Move states into App:
 
-## Available Scripts
+```javascript
+constructor(props){
+  super(props);
+  this.state = {
+    counter = 0
+  };
+  this.handleIncrement = this.handleIncrement.bind(this);
+  this.handleDecrement = this.handleDecrement.bind(this);
+}
 
-In the project directory, you can run:
+handleIncrement() {
+  this.setState({ counter: this.state.counter + 1 });
+}
 
-### `npm start`
+handleDecrement() {
+  this.setState({ counter: this.state.counter - 1 });
+}
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+2. Send states to **Component1** & **Component2**:
 
-### `npm test`
+```javascript
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<Component1
+  counter={this.state.counter}
+  handleIncrement={this.handleIncrement}
+/>
+<Component2
+  counter={this.state.counter}
+  handleDecrement={this.handleDecrement}
+/>
 
-### `npm run build`
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Call states through props:
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```javascript
+class Component1 extends Component {
+  render() {
+    return (
+      <div className="col-lg-6">
+        <div className="component">
+          <p>COMPONENT 1</p>
+          <p>{this.props.counter}</p>
+          <button
+            className="btn btn-lg btn-outline-dark"
+            onClick={() => this.props.handleIncrement()}
+          >
+            Increment
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+class Component2 extends Component {
+  render() {
+    return (
+      <div className="col-lg-6">
+        <div className="component">
+          <p>COMPONENT 2</p>
+          <p>{this.props.counter}</p>
+          <button
+            className="btn btn-lg btn-outline-dark"
+            onClick={() => this.props.handleIncrement()}
+          >
+            Increment
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+```
 
-### `npm run eject`
+4. Install mobx:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javascript
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+yarn add mobx
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+yarn add mobx-react
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+5. Create a folder call it **Stores** and a store file
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Import the following in the store:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+import { decorate, observable, computed } from "mobx";
+```
+
+7. Define your class and constructor:
+
+```javascript
+class NumberStore {
+  constructor() {
+    this.counter = 0;
+  }
+}
+```
+
+8. Define the methods inside the class:
+
+```javascript
+
+incrementCounter() {
+  this.counter++;
+}
+
+decrementCounter() {
+  this.counter--;
+}
+```
+
+9. Use decorate and then export the store:
+
+```javascript
+decorate(NumberStore, {
+  counter: observable,
+  double: computed
+});
+```
+
+10. Import the store in `App` and use the `multiplyCounterByFive` method:
+
+```javascript
+import Store from "./Stores/numberStore";
+
+<div className="row">
+  <button
+    className="btn btn-lg btn-block btn-outline-light"
+    onClick={() => Store.multiplyCounterByFive()}
+  >
+    Multiply by 5
+  </button>
+</div>;
+```
+
+11. Update `Component1` and `Component2`:
+
+```javascript
+import Store from "./Stores/numberStore";
+
+  <p>{Store.counter}</p>
+  <button
+    className="btn btn-lg btn-outline-dark"
+    onClick={() => Store.incrementCounter()}
+  >
+```
+
+12. Use `getter` method in `App`:
+
+```javascript
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <p>{Store.double}</p>
+        <div className="row">
+        ...
+```
