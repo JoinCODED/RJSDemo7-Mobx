@@ -1,3 +1,5 @@
+Discussion: https://docs.google.com/presentation/d/1XJNn0vFr_SXXnKU-D1J0lgJxRJgfwhR0A6R-Rl7T-9s/edit#slide=id.p
+
 1. Move states into App:
 
 ```javascript
