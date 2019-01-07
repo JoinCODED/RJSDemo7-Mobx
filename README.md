@@ -81,7 +81,7 @@ class Component2 extends Component {
 }
 ```
 
-4. Install mobx:
+4. Install MobX:
 
 ```javascript
 
@@ -164,7 +164,7 @@ export default observer(Component1);
 
 ```
 
-12. Add a `getter` method to show what we use the "computed" import for:
+12.  Inside the `CounterStore`, add a `getter` method to show what we use the "computed" import for:
 ```javascript
 get double() {
     return this.counter * 2;
@@ -190,6 +190,7 @@ class App extends Component {
    ```
 
 14. Create a `multiplyCounterByGive()` method inside the `CounterStore`:
+
 	```javascript
 	multiplyCounterByFive() {
 	  this.counter = this.counter * 5;
@@ -210,4 +211,4 @@ Explain how the `multiplyCounterByFive()` is different that the computed `double
 	    Multiply by 5
 	  </button>
 	</div>;
-```
+	```
