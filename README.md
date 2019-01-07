@@ -102,6 +102,8 @@ import { decorate, observable, computed } from "mobx";
 7. Define your class and constructor:
 
 ```javascript
+
+
 class NumberStore {
   constructor() {
     this.counter = 0;
@@ -120,15 +122,25 @@ handleIncrement() {
 handleDecrement() {
   this.counter--;
 }
+
+multiplyCounterByFive() {
+  this.counter = this.counter * 5;
+}
 ```
 
 9. Use decorate and then export the store:
 
 ```javascript
+import { decorate, observable, computed } from "mobx";
+
+...
+
 decorate(NumberStore, {
   counter: observable,
   double: computed
 });
+export default new NumberStore();
+
 ```
 
 10. Import the store in `App` and use the `multiplyCounterByFive` method:
@@ -158,7 +170,18 @@ import Store from "./Stores/numberStore";
   >
 ```
 
-12. Use `getter` method in `App`:
+12. Add observer in components 1 and 2:
+
+```javascript
+import { observer } from "mobx-react";
+
+...
+
+export default observer(Component1);
+
+```
+
+13. Use `getter` method in `App`:
 
 ```javascript
 
