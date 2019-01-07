@@ -7,10 +7,11 @@ class Component1 extends Component {
     this.state = {
       counter: 0
     };
-    this.incrementCounter = this.incrementCounter.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
   }
-  incrementCounter() {
-    this.setState({ counter: this.state.counter + 1 });
+  handleIncrement() {
+    let newNumber = this.state.counter + 1;
+    this.setState({ counter: newNumber });
   }
   render() {
     return (
@@ -20,7 +21,7 @@ class Component1 extends Component {
           <p>{this.state.counter}</p>
           <button
             className="btn btn-lg btn-outline-dark"
-            onClick={() => this.incrementCounter()}
+            onClick={() => this.handleIncrement()}
           >
             Increment
           </button>
