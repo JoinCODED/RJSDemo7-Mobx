@@ -6,18 +6,20 @@ Discussion: https://docs.google.com/presentation/d/1XJNn0vFr_SXXnKU-D1J0lgJxRJgf
 constructor(props){
   super(props);
   this.state = {
-    counter = 0
+    counter : 0
   };
   this.handleIncrement = this.handleIncrement.bind(this);
   this.handleDecrement = this.handleDecrement.bind(this);
 }
 
 handleIncrement() {
-  this.setState({ counter: this.state.counter + 1 });
+  let newCounter = this.state.counter + 1;
+  this.setState({ counter: newCounter });
 }
 
 handleDecrement() {
-  this.setState({ counter: this.state.counter - 1 });
+  let newCounter = this.state.counter - 1;
+  this.setState({ counter: newCounter });
 }
 
 ```
@@ -111,11 +113,11 @@ class NumberStore {
 
 ```javascript
 
-incrementCounter() {
+handleIncrement() {
   this.counter++;
 }
 
-decrementCounter() {
+handleDecrement() {
   this.counter--;
 }
 ```
