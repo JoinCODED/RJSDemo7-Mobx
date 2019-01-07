@@ -127,7 +127,12 @@ multiplyCounterByFive() {
   this.counter = this.counter * 5;
 }
 ```
-
+8b. Get method
+```javascript
+get double() {
+    return this.counter * 2;
+  }
+```
 9. Use decorate and then export the store:
 
 ```javascript
@@ -181,7 +186,7 @@ export default observer(Component1);
 
 ```
 
-13. Use `getter` method in `App`:
+13. Use `getter` method in `App`. Explain that we call it as if it was a variable:
 
 ```javascript
 
