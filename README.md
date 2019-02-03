@@ -6,18 +6,20 @@ Discussion: https://docs.google.com/presentation/d/1XJNn0vFr_SXXnKU-D1J0lgJxRJgf
 constructor(props){
   super(props);
   this.state = {
-    counter = 0
+    counter : 0
   };
   this.handleIncrement = this.handleIncrement.bind(this);
   this.handleDecrement = this.handleDecrement.bind(this);
 }
 
 handleIncrement() {
-  this.setState({ counter: this.state.counter + 1 });
+  let newCounter = this.state.counter + 1;
+  this.setState({ counter: newCounter });
 }
 
 handleDecrement() {
-  this.setState({ counter: this.state.counter - 1 });
+  let newCounter = this.state.counter - 1;
+  this.setState({ counter: newCounter });
 }
 
 ```
@@ -79,7 +81,7 @@ class Component2 extends Component {
 }
 ```
 
-4. Install mobx:
+4. Install MobX:
 
 ```javascript
 
@@ -100,7 +102,9 @@ import { decorate, observable, computed } from "mobx";
 7. Define your class and constructor:
 
 ```javascript
-class NumberStore {
+
+
+class CounterStore {
   constructor() {
     this.counter = 0;
   }
@@ -118,36 +122,27 @@ incrementCounter() {
 decrementCounter() {
   this.counter--;
 }
-```
 
+```
 9. Use decorate and then export the store:
 
 ```javascript
-decorate(NumberStore, {
+import { decorate, observable, computed } from "mobx";
+
+...
+
+decorate(CounterStore, {
   counter: observable,
-  double: computed
 });
+export default new CounterStore();
+
 ```
 
-10. Import the store in `App` and use the `multiplyCounterByFive` method:
+
+10. Update `Component1` and `Component2`:
 
 ```javascript
-import Store from "./Stores/numberStore";
-
-<div className="row">
-  <button
-    className="btn btn-lg btn-block btn-outline-light"
-    onClick={() => Store.multiplyCounterByFive()}
-  >
-    Multiply by 5
-  </button>
-</div>;
-```
-
-11. Update `Component1` and `Component2`:
-
-```javascript
-import Store from "./Stores/numberStore";
+import Store from "./Stores/CounterStore";
 
   <p>{Store.counter}</p>
   <button
@@ -156,7 +151,32 @@ import Store from "./Stores/numberStore";
   >
 ```
 
-12. Use `getter` method in `App`:
+When clicking, nothing changes. That is because these components are not observers yet. 
+
+11. Add observer in components 1 and 2:
+
+```javascript
+import { observer } from "mobx-react";
+
+...
+
+export default observer(Component1);
+
+```
+
+12.  Inside the `CounterStore`, add a `getter` method to show what we use the "computed" import for:
+```javascript
+get double() {
+    return this.counter * 2;
+  }
+decorate(CounterStore, {
+  counter: observable,
+  double: computed
+});
+export default new CounterStore();
+```
+
+13. Use the `getter` `double()` method in `App`. Explain that we call it as if it was a variable:
 
 ```javascript
 
@@ -167,4 +187,28 @@ class App extends Component {
         <p>{Store.double}</p>
         <div className="row">
         ...
-```
+   ```
+
+14. Create a `multiplyCounterByGive()` method inside the `CounterStore`:
+
+	```javascript
+	multiplyCounterByFive() {
+	  this.counter = this.counter * 5;
+	}
+	```
+Explain how the `multiplyCounterByFive()` is different that the computed `double()` method. `multiplyCounterByFive()` CHANGES the value of the state of the store, `double()` DEPENDS on a value of counter, and is run whenever the counter changes. 
+	
+15.  Import the store in `App` and use the `multiplyCounterByFive` method:
+	
+	```javascript
+	import Store from "./Stores/CounterStore";
+	
+	<div className="row">
+	  <button
+	    className="btn btn-lg btn-block btn-outline-light"
+	    onClick={() => Store.multiplyCounterByFive()}
+	  >
+	    Multiply by 5
+	  </button>
+	</div>;
+	```

@@ -6,7 +6,10 @@ class Component2 extends Component {
     counter: 0
   };
 
-  decrementCounter = () => this.setState({ counter: this.state.counter - 1 });
+  decrementCounter = () => {
+    let newCounter = this.state.counter - 1;
+    this.setState({ counter: newCounter });
+  };
 
   render() {
     return (
@@ -16,7 +19,7 @@ class Component2 extends Component {
           <p>{this.state.counter}</p>
           <button
             className="btn btn-lg btn-outline-dark"
-            onClick={() => this.decrementCounter()}
+            onClick={() => this.handleDecrement()}
           >
             Decrement
           </button>

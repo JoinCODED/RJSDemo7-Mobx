@@ -3,11 +3,14 @@ import "./App.css";
 
 class Component1 extends Component {
   state = {
-      counter: 0
-    };
+    counter: 0
+  };
 
-  incrementCounter = () => this.setState({ counter: this.state.counter + 1 });
-  
+  incrementCounter = () => {
+    let newNumber = this.state.counter + 1;
+    this.setState({ counter: newNumber });
+  };
+
   render() {
     return (
       <div className="col-lg-6">
@@ -16,7 +19,7 @@ class Component1 extends Component {
           <p>{this.state.counter}</p>
           <button
             className="btn btn-lg btn-outline-dark"
-            onClick={() => this.incrementCounter()}
+            onClick={() => this.handleIncrement()}
           >
             Increment
           </button>
