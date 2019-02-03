@@ -175,7 +175,7 @@ class App extends Component {
         ...
 ```
 
-14. Create a `multiplyCounterByGive()` method inside the `CounterStore`:
+14. Create a `multiplyCounterByFive` method inside the `CounterStore`:
 
         ```javascript
         multiplyCounterByFive() {
