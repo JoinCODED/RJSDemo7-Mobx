@@ -1,179 +1,179 @@
 Discussion: https://docs.google.com/presentation/d/1XJNn0vFr_SXXnKU-D1J0lgJxRJgfwhR0A6R-Rl7T-9s/edit#slide=id.p
 
-1. Move states into App:
+1.  Move states into App:
 
-```javascript
-state = {
-  counter: 0
-};
+    ```javascript
+    state = {
+      counter: 0
+    };
 
-handleIncrement = () => {
-  let newCounter = this.state.counter + 1;
-  this.setState({ counter: newCounter });
-};
+    handleIncrement = () => {
+      let newCounter = this.state.counter + 1;
+      this.setState({ counter: newCounter });
+    };
 
-handleDecrement = () => {
-  let newCounter = this.state.counter - 1;
-  this.setState({ counter: newCounter });
-};
-```
+    handleDecrement = () => {
+      let newCounter = this.state.counter - 1;
+      this.setState({ counter: newCounter });
+    };
+    ```
 
-2. Send states to `Component1` & `Component2`:
+2.  Send states to `Component1` & `Component2`:
 
-```javascript
+    ```javascript
 
-<Component1
-  counter={this.state.counter}
-  handleIncrement={this.handleIncrement}
-/>
-<Component2
-  counter={this.state.counter}
-  handleDecrement={this.handleDecrement}
-/>
+    <Component1
+      counter={this.state.counter}
+      handleIncrement={this.handleIncrement}
+    />
+    <Component2
+      counter={this.state.counter}
+      handleDecrement={this.handleDecrement}
+    />
 
-```
+    ```
 
-3. Call states through props:
+3.  Call states through props:
 
-```javascript
-class Component1 extends Component {
-  render() {
-    return (
-      <div className="col-lg-6">
-        <div className="component">
-          <p>COMPONENT 1</p>
-          <p>{this.props.counter}</p>
-          <button
-            className="btn btn-lg btn-outline-dark"
-            onClick={() => this.props.handleIncrement()}
-          >
-            Increment
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
+    ```javascript
+    class Component1 extends Component {
+      render() {
+        return (
+          <div className="col-lg-6">
+            <div className="component">
+              <p>COMPONENT 1</p>
+              <p>{this.props.counter}</p>
+              <button
+                className="btn btn-lg btn-outline-dark"
+                onClick={() => this.props.handleIncrement()}
+              >
+                Increment
+              </button>
+            </div>
+          </div>
+        );
+      }
+    }
 
-class Component2 extends Component {
-  render() {
-    return (
-      <div className="col-lg-6">
-        <div className="component">
-          <p>COMPONENT 2</p>
-          <p>{this.props.counter}</p>
-          <button
-            className="btn btn-lg btn-outline-dark"
-            onClick={() => this.props.handleDecrement()}
-          >
-            Decrement
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
-```
+    class Component2 extends Component {
+      render() {
+        return (
+          <div className="col-lg-6">
+            <div className="component">
+              <p>COMPONENT 2</p>
+              <p>{this.props.counter}</p>
+              <button
+                className="btn btn-lg btn-outline-dark"
+                onClick={() => this.props.handleDecrement()}
+              >
+                Decrement
+              </button>
+            </div>
+          </div>
+        );
+      }
+    }
+    ```
 
-4. Install MobX:
+4.  Install MobX:
 
-```shell
-$ yarn add mobx
-$ yarn add mobx-react
-```
+    ```shell
+    $ yarn add mobx
+    $ yarn add mobx-react
+    ```
 
-5. Create a folder call it **stores** and a `counterStore` file
+5.  Create a folder call it **stores** and a `counterStore` file
 
-6) Define a class with a counter property:
+6.  Define a class with a counter property:
 
-```javascript
-class CounterStore {
-  counter = 0;
-}
-```
+    ```javascript
+    class CounterStore {
+      counter = 0;
+    }
+    ```
 
-7. Define the methods inside the class:
+7.  Define the methods inside the class:
 
-```javascript
-incrementCounter = () => this.counter++;
+    ```javascript
+    incrementCounter = () => this.counter++;
 
-decrementCounter = () => this.counter--;
-```
+    decrementCounter = () => this.counter--;
+    ```
 
-8. # Import and use `decorate` and `observable` and then export the store:
+8.  Import and use `decorate` and `observable` and then export the store:
 
-```javascript
-import { decorate, observable } from "mobx";
+    ```javascript
+    import { decorate, observable } from "mobx";
 
-...
+    ...
 
-decorate(CounterStore, {
-  counter: observable,
-});
+    decorate(CounterStore, {
+      counter: observable,
+    });
 
-export default new CounterStore();
+    export default new CounterStore();
 
-```
+    ```
 
-9. Update `Component1` and `Component2`:
+9.  Update `Component1` and `Component2`:
 
-```javascript
-import counterStore from "./stores/counterStore";
+    ```javascript
+    import counterStore from "./stores/counterStore";
 
-  <p>{counterStore.counter}</p>
-  <button
-    className="btn btn-lg btn-outline-dark"
-    onClick={() => counterStore.incrementCounter()}
-  >
-```
+      <p>{counterStore.counter}</p>
+      <button
+        className="btn btn-lg btn-outline-dark"
+        onClick={() => counterStore.incrementCounter()}
+      >
+    ```
 
-When clicking, nothing changes. That is because these components are not observers yet.
+    When clicking, nothing changes. That is because these components are not observers yet.
 
 10. Make the components `observer`s:
 
-```javascript
-import { observer } from "mobx-react";
+    ```javascript
+    import { observer } from "mobx-react";
 
-...
+    ...
 
-export default observer(Component1);
+    export default observer(Component1);
 
-```
+    ```
 
 11. Inside the `counterStore`, add a `getter` method to show what we use the `computed` import for:
 
-```javascript
-import { decorate, observable, computed } from "mobx";
+    ```javascript
+    import { decorate, observable, computed } from "mobx";
 
-class CounterStore {
+    class CounterStore {
 
-  ...
+      ...
 
-  get double() {
-    return this.counter * 2;
-  }
-}
+      get double() {
+        return this.counter * 2;
+      }
+    }
 
-decorate(CounterStore, {
-  counter: observable,
-  double: computed
-});
+    decorate(CounterStore, {
+      counter: observable,
+      double: computed
+    });
 
-export default new CounterStore();
-```
+    export default new CounterStore();
+    ```
 
 12. Use the `double` computed property in `App`. Explain that we call it as if it was a variable:
 
-```javascript
+    ```javascript
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <p>{counterStore.double}</p>
-        <div className="row">
-        ...
-```
+    class App extends Component {
+      render() {
+        return (
+          <div className="App">
+            <p>{counterStore.double}</p>
+            <div className="row">
+            ...
+    ```
 
 13. Create a `multiplyCounterByFive` method inside the `CounterStore`:
 
@@ -186,7 +186,6 @@ class App extends Component {
     Explain how the `multiplyCounterByFive` is different that the computed `double` method. `multiplyCounterByFive` CHANGES the value of the state of the store, `double` DEPENDS on a value of counter, and is run whenever the counter changes.
 
 14. Import the store in `App` and use the `multiplyCounterByFive` method:
-
 
     ```javascript
     import counterStore from "./store/counterStore";
