@@ -100,7 +100,7 @@ incrementCounter = () => this.counter++;
 decrementCounter = () => this.counter--;
 ```
 
-8. Import and use `decorate` and `observable` and then export the store:
+8. # Import and use `decorate` and `observable` and then export the store:
 
 ```javascript
 import { decorate, observable } from "mobx";
@@ -115,7 +115,7 @@ export default new CounterStore();
 
 ```
 
-10. Update `Component1` and `Component2`:
+9. Update `Component1` and `Component2`:
 
 ```javascript
 import counterStore from "./stores/counterStore";
@@ -129,7 +129,7 @@ import counterStore from "./stores/counterStore";
 
 When clicking, nothing changes. That is because these components are not observers yet.
 
-11. Make the components `observer`s:
+10. Make the components `observer`s:
 
 ```javascript
 import { observer } from "mobx-react";
@@ -140,7 +140,7 @@ export default observer(Component1);
 
 ```
 
-12. Inside the `counterStore`, add a `getter` method to show what we use the `computed` import for:
+11. Inside the `counterStore`, add a `getter` method to show what we use the `computed` import for:
 
 ```javascript
 import { decorate, observable, computed } from "mobx";
@@ -162,7 +162,7 @@ decorate(CounterStore, {
 export default new CounterStore();
 ```
 
-13. Use the `double` computed property in `App`. Explain that we call it as if it was a variable:
+12. Use the `double` computed property in `App`. Explain that we call it as if it was a variable:
 
 ```javascript
 
@@ -175,7 +175,7 @@ class App extends Component {
         ...
 ```
 
-14. Create a `multiplyCounterByFive` method inside the `CounterStore`:
+13. Create a `multiplyCounterByFive` method inside the `CounterStore`:
 
         ```javascript
         multiplyCounterByFive() {
@@ -185,7 +185,7 @@ class App extends Component {
 
     Explain how the `multiplyCounterByFive` is different that the computed `double` method. `multiplyCounterByFive` CHANGES the value of the state of the store, `double` DEPENDS on a value of counter, and is run whenever the counter changes.
 
-15. Import the store in `App` and use the `multiplyCounterByFive` method:
+14. Import the store in `App` and use the `multiplyCounterByFive` method:
 
 
     ```javascript
@@ -194,7 +194,7 @@ class App extends Component {
     <div className="row">
       <button
         className="btn btn-lg btn-block btn-outline-light"
-        onClick={() => counterStore.multiplyCounterByFive()}
+        onClick={counterStore.multiplyCounterByFive}
       >
         Multiply by 5
       </button>
