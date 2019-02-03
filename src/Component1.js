@@ -2,16 +2,12 @@ import React, { Component } from "react";
 import "./App.css";
 
 class Component1 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
       counter: 0
     };
-    this.incrementCounter = this.incrementCounter.bind(this);
-  }
-  incrementCounter() {
-    this.setState({ counter: this.state.counter + 1 });
-  }
+
+  incrementCounter = () => this.setState({ counter: this.state.counter + 1 });
+  
   render() {
     return (
       <div className="col-lg-6">
