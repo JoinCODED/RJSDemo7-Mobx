@@ -18,4 +18,5 @@ decorate(NumberStore, {
   counter: observable,
   double: computed
 });
+
 export default new NumberStore();

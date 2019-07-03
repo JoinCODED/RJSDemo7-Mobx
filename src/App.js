@@ -10,7 +10,7 @@ import Component2 from "./Component2";
 function App() {
   return (
     <div className="App">
-      <p>{counterStore.multiplyCounter2}</p>
+      <p>{counterStore.double}</p>
       <div className="row">
         <Component1 />
         <Component2 />
