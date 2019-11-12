@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import "./App.css";
 
-import counterStore from "./stores/counterStore";
+import counterStore from "./Stores/counterStore";
 
 import Component1 from "./Component1";
 import Component2 from "./Component2";
@@ -18,7 +18,7 @@ const App = () => {
       <div className="row">
         <button
           className="btn btn-lg btn-block btn-outline-light"
-          onClick={counterStore.multiplyCounter}
+          onClick={counterStore.multiplyCounterByFive}
         >
           Multiply by 5
         </button>

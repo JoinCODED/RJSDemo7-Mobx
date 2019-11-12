@@ -1,11 +1,11 @@
 import { decorate, observable, computed } from "mobx";
 
-class NumberStore {
+class CounterStore {
   counter = 0;
 
-  incrementCounter = () => this.counter++;
+  handleIncrement = () => this.counter++;
 
-  decrementCounter = () => this.counter--;
+  handleDecrement = () => this.counter--;
 
   multiplyCounterByFive = () => (this.counter = this.counter * 5);
 
@@ -14,9 +14,11 @@ class NumberStore {
   }
 }
 
-decorate(NumberStore, {
+decorate(CounterStore, {
   counter: observable,
   double: computed
 });
 
-export default new NumberStore();
+const counterStore = new CounterStore();
+
+export default counterStore;
