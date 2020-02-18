@@ -6,7 +6,7 @@ class Component2 extends Component {
     counter: 0
   };
 
-  decrementCounter = () => {
+  handleDecrement = () => {
     let newCounter = this.state.counter - 1;
     this.setState({ counter: newCounter });
   };
@@ -19,7 +19,7 @@ class Component2 extends Component {
           <p>{this.state.counter}</p>
           <button
             className="btn btn-lg btn-outline-dark"
-            onClick={() => this.handleDecrement()}
+            onClick={this.handleDecrement}
           >
             Decrement
           </button>
