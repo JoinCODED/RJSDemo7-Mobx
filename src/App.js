@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import "./App.css";
 
-import counterStore from "./Stores/counterStore";
+import counterStore from "./stores/counterStore";
 
 import Component1 from "./Component1";
 import Component2 from "./Component2";

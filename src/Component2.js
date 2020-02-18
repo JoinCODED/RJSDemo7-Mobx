@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 
 import "./App.css";
 
-import counterStore from "./Stores/counterStore";
+import counterStore from "./stores/counterStore";
 
 const Component2 = () => {
   return (
